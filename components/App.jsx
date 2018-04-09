@@ -1,10 +1,15 @@
 import React from 'react';
+import Queue from './Queue.jsx';
 
 class App extends React.Component {
     render(){
 
         return (
-            <h1>Hello PSQueue</h1>
+            <div>
+                <h1>Hello PSQueue</h1>
+                <br/>
+                <Queue />
+            </div>
         );
     }
 }
