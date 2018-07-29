@@ -8,7 +8,9 @@ class App extends React.Component {
             <div>
                 <h1>Hello PSQueue</h1>
                 <br/>
-                <Queue />
+                <Queue
+                    user={"ethanhur"}
+                />
             </div>
         );
     }
