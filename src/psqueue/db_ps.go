@@ -70,3 +70,18 @@ func UpdateProblem(pid int, title string, level int, url string, status string, 
 		log.Fatal(err)
 	}
 }
+
+func DeleteProblem(pid int) {
+	db, err := sql.Open("sqlite3", "data.db")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	stmt, err := db.Prepare("DELETE problem WHERE id = ?")
+
+	_, err = stmt.Exec(pid)
+	if err != nil {
+		log.Fatal(err)
+	}
+}

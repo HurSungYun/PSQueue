@@ -90,11 +90,26 @@ func updateProblemHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(resData)
 }
 
+func deleteProblemHandler(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	id, err := strconv.Atoi(r.FormValue("id"))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	psqueue.DeleteProblem(id)
+
+	resData := SimpleResponse{0}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(resData)
+}
+
 func main() {
 	http.HandleFunc("/", mainHandler)
 	http.HandleFunc("/queue/list", queueListHandler)
 	http.HandleFunc("/queue/add", addProblemHandler)
 	http.HandleFunc("/queue/edit", updateProblemHandler)
+	http.HandleFunc("/queue/delete", deleteProblemHandler)
 
 	serveSingle("/bundle.js", "public/bundle.js")
 	if err := http.ListenAndServe(":15395", nil); err != nil {
